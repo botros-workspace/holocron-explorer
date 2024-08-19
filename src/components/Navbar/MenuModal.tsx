@@ -19,9 +19,9 @@ const MenuModal: FunctionComponent = () => {
   const [isCloseButtonHovered, setIsCloseButtonHovered] = useState(false)
   const menuItemsArray = [
     { name: 'Home', link: '/', delay: 0 },
+    { name: 'Films', link: '/films', delay: 300 },
     { name: 'Characters', link: '/characters', delay: 100 },
     { name: 'Planets', link: '/planets', delay: 200 },
-    { name: 'Films', link: '/films', delay: 300 },
     { name: 'Species', link: '/species', delay: 400 },
     { name: 'Vehicles', link: '/vehicles', delay: 500 },
     { name: 'Star ships', link: '/starships', delay: 600 },
