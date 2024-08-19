@@ -70,6 +70,15 @@ const SearchButton: FunctionComponent<Props> = ({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && isSearchActive) {
+        fetchData()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [fetchData, isSearchActive])
   return (
     <>
       {showResetButton && !isSearchActive && (
