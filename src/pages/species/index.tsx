@@ -110,6 +110,7 @@ const AllSpeciesPage: NextPage = () => {
   const [activeIndex, setactiveIndex] = useState(0)
   const [isError, setIsError] = useState(false)
   const [tempResultArray, setTempResultArray] = useState<Species[]>([])
+  const [isFetching, setIsFetching] = useState(false)
   const setSearchResult = useCallback(
     (searchResult: Result) => {
       if (searchResult.results.length > 0) {
@@ -142,6 +143,7 @@ const AllSpeciesPage: NextPage = () => {
     let response: Species[]
     let error: boolean = false
     try {
+      setIsFetching(true)
       response = await Promise.all(
         (data.results as Species[]).map(async (item: Species) => {
           try {
@@ -186,6 +188,7 @@ const AllSpeciesPage: NextPage = () => {
       error = true
     } finally {
       clearTimeout(timeoutId)
+      setIsFetching(false)
     }
     if (!error) {
       setResultArray((prevArray) => [...prevArray, ...response])
@@ -217,6 +220,7 @@ const AllSpeciesPage: NextPage = () => {
       fetchData={fetchData}
       setSearchResult={setSearchResult}
       removeSearchResult={removeSearchResult}
+      isFetching={loading || isFetching}
     />
   )
 }

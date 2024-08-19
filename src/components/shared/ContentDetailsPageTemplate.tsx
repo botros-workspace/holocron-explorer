@@ -37,7 +37,7 @@ type Props = {
   isError: boolean
   url: string
   fetchData: () => void
-
+  isFetching: boolean
   setSearchResult: (value: Result) => void
   removeSearchResult: () => void
 }
@@ -53,7 +53,7 @@ const ContentDetailsPageTemplate: FunctionComponent<Props> = ({
   isError,
   url,
   fetchData,
-
+  isFetching,
   setSearchResult,
   removeSearchResult,
 }) => {
@@ -97,6 +97,7 @@ const ContentDetailsPageTemplate: FunctionComponent<Props> = ({
         url={url}
         setSearchResult={setSearchResult}
         removeSearchResult={removeSearchResult}
+        isFetching={isFetching}
       />
       <StarWarCustomBackgroundTemplate />
       <Flex

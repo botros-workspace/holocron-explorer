@@ -20,11 +20,13 @@ type Props = {
   url: string
   setSearchResult: (value: Result) => void
   removeSearchResult: () => void
+  isFetching: boolean
 }
 const SearchButton: FunctionComponent<Props> = ({
   url,
   setSearchResult,
   removeSearchResult,
+  isFetching,
 }) => {
   const colors = useColor()
   const searchButtonRef = useRef<HTMLDivElement | null>(null)
@@ -195,7 +197,7 @@ const SearchButton: FunctionComponent<Props> = ({
         ) : (
           <Flex
             alignItems={'center'}
-            cursor={'pointer'}
+            cursor={isFetching ? '' : 'pointer'}
             zIndex={10}
             h={{ base: 10, md: 16 }}
             w={{ base: 10, md: 16 }}
@@ -213,13 +215,14 @@ const SearchButton: FunctionComponent<Props> = ({
             onMouseEnter={() => setIsSearchHovered(true)}
             onMouseLeave={() => setIsSearchHovered(false)}
             onClick={() => {
+              if (isFetching) return
               setIsSearchActive(true)
               if (inputRef.current) {
                 inputRef.current.focus()
               }
             }}
           >
-            <BsSearch />
+            {isFetching ? <Spinner /> : <BsSearch />}
           </Flex>
         )}
       </Flex>

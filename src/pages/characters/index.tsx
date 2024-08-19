@@ -101,6 +101,7 @@ const AllCharactersPage: NextPage = () => {
   const [resultInformation, setResultInformation] = useState<Result>()
   const [tempResultInformation, setTempResultInformation] = useState<Result>()
   const [isError, setIsError] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
   const [currentPageUrl, setCurrentPageUrl] = useState(
     'https://swapi.dev/api/people/'
   )
@@ -139,6 +140,7 @@ const AllCharactersPage: NextPage = () => {
     let response: Character[]
     let error: boolean = false
     try {
+      setIsFetching(true)
       response = await Promise.all(
         (data.results as Character[]).map(async (item: Character) => {
           try {
@@ -197,6 +199,7 @@ const AllCharactersPage: NextPage = () => {
       error = true
     } finally {
       clearTimeout(timeoutId)
+      setIsFetching(false)
     }
     if (!error) {
       setResultArray((prevArray) => [...prevArray, ...response])
@@ -230,6 +233,7 @@ const AllCharactersPage: NextPage = () => {
       fetchData={fetchData}
       setSearchResult={setSearchResult}
       removeSearchResult={removeSearchResult}
+      isFetching={loading || isFetching}
     />
   )
 }

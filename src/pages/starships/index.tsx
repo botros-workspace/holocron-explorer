@@ -107,7 +107,7 @@ const AllStarshipsPage: NextPage = () => {
   const [resultArray, setResultArray] = useState<Starship[]>([])
   const [resultInformation, setResultInformation] = useState<Result>()
   const [tempResultInformation, setTempResultInformation] = useState<Result>()
-
+  const [isFetching, setIsFetching] = useState(false)
   const [currentPageUrl, setCurrentPageUrl] = useState(
     'https://swapi.dev/api/starships/'
   )
@@ -148,6 +148,7 @@ const AllStarshipsPage: NextPage = () => {
     let response: Starship[]
     let error: boolean = false
     try {
+      setIsFetching(true)
       response = await Promise.all(
         (data.results as Starship[]).map(async (item: Starship) => {
           try {
@@ -187,6 +188,7 @@ const AllStarshipsPage: NextPage = () => {
       setIsError(true)
       error = true
     } finally {
+      setIsFetching(false)
       clearTimeout(timeoutId)
     }
     if (!error) {
@@ -219,6 +221,7 @@ const AllStarshipsPage: NextPage = () => {
       fetchData={fetchData}
       setSearchResult={setSearchResult}
       removeSearchResult={removeSearchResult}
+      isFetching={loading || isFetching}
     />
   )
 }

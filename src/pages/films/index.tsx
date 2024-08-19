@@ -94,6 +94,7 @@ const AllFilmsPage: NextPage = () => {
   const [isError, setIsError] = useState(false)
   const [resultInformation, setResultInformation] = useState<Result>()
   const [tempResultInformation, setTempResultInformation] = useState<Result>()
+  const [isFetching, setIsFetching] = useState(false)
   const [currentPageUrl, setCurrentPageUrl] = useState(
     'https://swapi.dev/api/films/'
   )
@@ -133,6 +134,7 @@ const AllFilmsPage: NextPage = () => {
     let response: Film[]
     let error: boolean = false
     try {
+      setIsFetching(true)
       response = await Promise.all(
         (data.results as Film[]).map(async (item: Film) => {
           try {
@@ -195,6 +197,7 @@ const AllFilmsPage: NextPage = () => {
       error = true
     } finally {
       clearTimeout(timeoutId)
+      setIsFetching(false)
     }
     if (!error) {
       setResultArray((prevArray) => [...prevArray, ...response])
@@ -227,6 +230,7 @@ const AllFilmsPage: NextPage = () => {
       isError={isError}
       setSearchResult={setSearchResult}
       removeSearchResult={removeSearchResult}
+      isFetching={loading || isFetching}
     />
   )
 }

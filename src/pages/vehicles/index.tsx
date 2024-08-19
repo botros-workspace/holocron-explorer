@@ -98,6 +98,7 @@ const AllVehiclesPage: NextPage = () => {
   const [currentPageUrl, setCurrentPageUrl] = useState(
     'https://swapi.dev/api/vehicles/'
   )
+  const [isFetching, setIsFetching] = useState(false)
   const { data, loading, error } = useFetch<Result>(currentPageUrl)
   const [nextPageUrl, setNextPageUrl] = useState('')
   const [activeIndex, setactiveIndex] = useState(0)
@@ -135,6 +136,7 @@ const AllVehiclesPage: NextPage = () => {
     let response: Vehicle[]
     let error: boolean = false
     try {
+      setIsFetching(true)
       response = await Promise.all(
         (data.results as Vehicle[]).map(async (item: Vehicle) => {
           try {
@@ -175,6 +177,7 @@ const AllVehiclesPage: NextPage = () => {
       error = true
     } finally {
       clearTimeout(timeoutId)
+      setIsFetching(false)
     }
     if (!error) {
       setResultArray((prevArray) => [...prevArray, ...response])
@@ -206,6 +209,7 @@ const AllVehiclesPage: NextPage = () => {
       fetchData={fetchData}
       setSearchResult={setSearchResult}
       removeSearchResult={removeSearchResult}
+      isFetching={loading || isFetching}
     />
   )
 }

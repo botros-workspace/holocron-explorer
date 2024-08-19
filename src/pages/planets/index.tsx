@@ -97,6 +97,7 @@ const AllPlanetsPage: NextPage = () => {
     'https://swapi.dev/api/planets/'
   )
   const { data, loading, error } = useFetch<Result>(currentPageUrl)
+  const [isFetching, setIsFetching] = useState(false)
   const [nextPageUrl, setNextPageUrl] = useState('')
   const [isError, setIsError] = useState(false)
   const [activeIndex, setactiveIndex] = useState(0)
@@ -133,6 +134,7 @@ const AllPlanetsPage: NextPage = () => {
     let response: Planet[]
     let error: boolean = false
     try {
+      setIsFetching(true)
       response = await Promise.all(
         (data.results as Planet[]).map(async (item: Planet) => {
           try {
@@ -170,6 +172,7 @@ const AllPlanetsPage: NextPage = () => {
       error = true
     } finally {
       clearTimeout(timeoutId)
+      setIsFetching(false)
     }
     if (!error) {
       setResultArray((prevArray) => [...prevArray, ...response])
@@ -202,6 +205,7 @@ const AllPlanetsPage: NextPage = () => {
       fetchData={fetchData}
       setSearchResult={setSearchResult}
       removeSearchResult={removeSearchResult}
+      isFetching={loading || isFetching}
     />
   )
 }
