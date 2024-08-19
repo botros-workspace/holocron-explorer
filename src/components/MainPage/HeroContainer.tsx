@@ -137,7 +137,7 @@ const HeroContainer: FunctionComponent = () => {
         }}
         textColor={colors.red}
         fontFamily={'Star Jedi'}
-        transition={'transform 0.9s'}
+        transition={'transform 0.8s'}
         transitionDelay={'0.5s'}
         transform={showHero ? 'translateY(0px)' : 'translateY(100px)'}
       >

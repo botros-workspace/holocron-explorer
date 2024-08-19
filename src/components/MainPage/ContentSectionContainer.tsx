@@ -7,6 +7,13 @@ import StarWarCustomBackgroundTemplate from '../shared/StarWarCustomBackgroundTe
 const ContentSectionContainer: FunctionComponent = () => {
   const contentArray: ContentAttributes[] = [
     {
+      category: 'Films',
+      description:
+        'Relive the epic saga with a detailed look at all Star Wars films. From “A New Hope” to “The Rise of Skywalker,” explore the plots, release dates, directors, and memorable moments from each film.',
+      image: '/content-films.png',
+      url: '/films',
+    },
+    {
       category: 'Characters',
       description:
         'Explore the galaxy’s most iconic characters, from legendary Jedi Knights to notorious Sith Lords. Discover details about their homeworlds, species, affiliations, and much more.',
@@ -19,13 +26,6 @@ const ContentSectionContainer: FunctionComponent = () => {
         'Journey across the Star Wars universe and visit distant worlds, from the desert planet Tatooine to the city-covered Coruscant. Learn about each planet’s terrain, climate, and the fascinating species that inhabit them.',
       image: '/content-planets.png',
       url: '/planets',
-    },
-    {
-      category: 'Films',
-      description:
-        'Relive the epic saga with a detailed look at all Star Wars films. From “A New Hope” to “The Rise of Skywalker,” explore the plots, release dates, directors, and memorable moments from each film.',
-      image: '/content-films.png',
-      url: '/films',
     },
     {
       category: 'Species',
