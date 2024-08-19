@@ -110,6 +110,7 @@ const AllVehiclesPage: NextPage = () => {
           setTempResultInformation(resultInformation)
           setTempResultArray(resultArray)
         }
+        setIsError(false)
         setactiveIndex(0)
         setResultArray(searchResult.results as Vehicle[])
         setResultInformation(searchResult)
@@ -131,9 +132,10 @@ const AllVehiclesPage: NextPage = () => {
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 20000)
-
+    let response: Vehicle[]
+    let error: boolean = false
     try {
-      const response = await Promise.all(
+      response = await Promise.all(
         (data.results as Vehicle[]).map(async (item: Vehicle) => {
           try {
             const pilots = item.pilots || []
@@ -163,19 +165,22 @@ const AllVehiclesPage: NextPage = () => {
             }
           } catch (itemError) {
             setIsError(true)
-
+            error = true
             return item
           }
         })
       )
-
-      setResultArray((prevArray) => [...prevArray, ...response])
-      setResultInformation(data)
     } catch (fetchError: any) {
       setIsError(true)
-      setResultArray([])
+      error = true
     } finally {
       clearTimeout(timeoutId)
+    }
+    if (!error) {
+      setResultArray((prevArray) => [...prevArray, ...response])
+      setResultInformation(data)
+    } else {
+      setResultArray([])
     }
   }, [data])
   useEffect(() => {

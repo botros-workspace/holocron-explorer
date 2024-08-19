@@ -123,6 +123,7 @@ const AllStarshipsPage: NextPage = () => {
           setTempResultInformation(resultInformation)
           setTempResultArray(resultArray)
         }
+        setIsError(false)
         setactiveIndex(0)
         setResultArray(searchResult.results as Starship[])
         setResultInformation(searchResult)
@@ -144,9 +145,10 @@ const AllStarshipsPage: NextPage = () => {
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 20000)
-
+    let response: Starship[]
+    let error: boolean = false
     try {
-      const response = await Promise.all(
+      response = await Promise.all(
         (data.results as Starship[]).map(async (item: Starship) => {
           try {
             const pilots = item.pilots || []
@@ -176,18 +178,22 @@ const AllStarshipsPage: NextPage = () => {
             }
           } catch (itemError) {
             setIsError(true)
+            error = true
             return item
           }
         })
       )
-
-      setResultArray((prevArray) => [...prevArray, ...response])
-      setResultInformation(data)
     } catch (fetchError: any) {
       setIsError(true)
-      setResultArray([])
+      error = true
     } finally {
       clearTimeout(timeoutId)
+    }
+    if (!error) {
+      setResultArray((prevArray) => [...prevArray, ...response])
+      setResultInformation(data)
+    } else {
+      setResultArray([])
     }
   }, [data])
   useEffect(() => {

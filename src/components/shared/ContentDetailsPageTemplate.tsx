@@ -222,7 +222,9 @@ const ContentDetailsPageTemplate: FunctionComponent<Props> = ({
         fontSize={{ base: 'xs', md: 'xl' }}
       >
         Totall ${categoryName} number :{' '}
-        {allValuesCount ? (
+        {isError ? (
+          'Error'
+        ) : allValuesCount ? (
           activeIndex + 1 + ' / ' + allValuesCount
         ) : (
           <Flex w={8}>

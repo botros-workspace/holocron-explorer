@@ -108,6 +108,7 @@ const AllPlanetsPage: NextPage = () => {
           setTempResultInformation(resultInformation)
           setTempResultArray(resultArray)
         }
+        setIsError(false)
         setactiveIndex(0)
         setResultArray(searchResult.results as Planet[])
         setResultInformation(searchResult)
@@ -129,9 +130,10 @@ const AllPlanetsPage: NextPage = () => {
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 20000)
-
+    let response: Planet[]
+    let error: boolean = false
     try {
-      const response = await Promise.all(
+      response = await Promise.all(
         (data.results as Planet[]).map(async (item: Planet) => {
           try {
             const [residents, films] = await Promise.all([
@@ -158,18 +160,22 @@ const AllPlanetsPage: NextPage = () => {
             }
           } catch (itemError) {
             setIsError(true)
+            error = true
             return item
           }
         })
       )
-
-      setResultArray((prevArray) => [...prevArray, ...response])
-      setResultInformation(data)
     } catch (fetchError: any) {
       setIsError(true)
-      setResultArray([])
+      error = true
     } finally {
       clearTimeout(timeoutId)
+    }
+    if (!error) {
+      setResultArray((prevArray) => [...prevArray, ...response])
+      setResultInformation(data)
+    } else {
+      setResultArray([])
     }
   }, [data])
   useEffect(() => {

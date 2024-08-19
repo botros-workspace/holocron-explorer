@@ -114,6 +114,7 @@ const AllCharactersPage: NextPage = () => {
           setTempResultInformation(resultInformation)
           setTempResultArray(resultArray)
         }
+        setIsError(false)
         setactiveIndex(0)
         setResultArray(searchResult.results as Character[])
         setResultInformation(searchResult)
@@ -135,9 +136,10 @@ const AllCharactersPage: NextPage = () => {
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 20000)
-
+    let response: Character[]
+    let error: boolean = false
     try {
-      const response = await Promise.all(
+      response = await Promise.all(
         (data.results as Character[]).map(async (item: Character) => {
           try {
             const [homeWorld, films, species, vehicles, starShips] =
@@ -185,18 +187,22 @@ const AllCharactersPage: NextPage = () => {
             }
           } catch (itemError) {
             setIsError(true)
-
+            error = true
             return item
           }
         })
       )
-      setResultArray((prevArray) => [...prevArray, ...response])
-      setResultInformation(data)
     } catch (fetchError: any) {
       setIsError(true)
-      setResultArray([])
+      error = true
     } finally {
       clearTimeout(timeoutId)
+    }
+    if (!error) {
+      setResultArray((prevArray) => [...prevArray, ...response])
+      setResultInformation(data)
+    } else {
+      setResultArray([])
     }
   }, [data])
 
