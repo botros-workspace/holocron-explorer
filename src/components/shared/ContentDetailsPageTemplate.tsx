@@ -124,6 +124,11 @@ const ContentDetailsPageTemplate: FunctionComponent<Props> = ({
           pos={'relative'}
           flexDir={{ base: 'column', lg: 'row' }}
           overflow={'scroll'}
+          css={{
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
         >
           <Flex
             pos={'absolute'}
@@ -199,7 +204,9 @@ const ContentDetailsPageTemplate: FunctionComponent<Props> = ({
               </Flex>
             </Flex>
           ) : resultArray.length ? (
-            <>{childrenComponent}</>
+            <Flex h={'100%'} flexDir={{ base: 'column', lg: 'row' }}>
+              {childrenComponent}
+            </Flex>
           ) : (
             <Flex
               w={{ base: 72, md: 96 }}
@@ -228,7 +235,7 @@ const ContentDetailsPageTemplate: FunctionComponent<Props> = ({
         ) : allValuesCount ? (
           activeIndex + 1 + ' / ' + allValuesCount
         ) : (
-          <Flex w={8}>
+          <Flex pb={{ base: 2, md: 0 }}>
             <Spinner />
           </Flex>
         )}

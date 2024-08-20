@@ -128,7 +128,7 @@ const ContentGalleryContainer: FunctionComponent<Props> = ({
 
       <Flex
         w={{ base: '75%', md: '65%' }}
-        h={'50%'}
+        h={'60%'}
         flexDir={'column'}
         overflow={'hidden'}
       >
@@ -141,12 +141,16 @@ const ContentGalleryContainer: FunctionComponent<Props> = ({
           transition={'all 0.5s'}
           transform={transformValue}
           opacity={hideActiveContainer ? 0 : 1}
-          gap={10}
+          gap={{ base: 2, md: 4, lg: 10 }}
           justifyContent={'center'}
           alignItems={'center'}
           px={2}
         >
-          <Flex w={{ base: '100%', lg: '60%' }} h={{ base: '100%', lg: '90%' }}>
+          <Flex
+            w={{ base: '100%', lg: '60%' }}
+            h={{ base: '100%', lg: '90%' }}
+            overflow={'visible'}
+          >
             <Image
               w={'100%'}
               src={contentArray[activeIndex].image}
@@ -160,42 +164,34 @@ const ContentGalleryContainer: FunctionComponent<Props> = ({
             justifyContent={'center'}
             alignItems={'center'}
             flexDir={'column'}
+            fontFamily={'Star Jedi'}
+            gap={{ base: 3, md: 6 }}
           >
-            <Flex
-              alignItems={'center'}
-              flexDir={'column'}
-              gap={2}
-              fontFamily={'Star Jedi'}
-              h={{ base: '70%', xl: '80%' }}
+            <Text
+              textColor={colors.red}
+              fontSize={{ base: 'lg', md: '2xl', lg: '4xl' }}
             >
-              <Text
-                textColor={colors.red}
-                fontSize={{ base: 'lg', md: '2xl', lg: '4xl' }}
-              >
-                {contentArray[activeIndex].category}
-              </Text>
-              <Text
-                textColor={colors.yellow}
-                fontSize={{ base: 'xs', md: 'md', lg: 'xl' }}
-              >
-                {contentArray[activeIndex].description}
-              </Text>
-            </Flex>
+              {contentArray[activeIndex].category}
+            </Text>
+            <Text textColor={colors.yellow} fontSize={{ base: 'xs', md: 'xl' }}>
+              {contentArray[activeIndex].description}
+            </Text>
+
             <Flex w={'100%'} justifyContent={'flex-end'}>
               <Link href={contentArray[activeIndex].url}>
                 <Box
-                  px={4}
-                  w={{ base: 48, lg: 72 }}
-                  py={2}
+                  px={2}
+                  w={{ base: 48, md: 72 }}
+                  py={1}
                   bg={'#171717'}
                   borderWidth={1}
-                  borderRadius={'lg'}
+                  borderRadius={'md'}
                   textAlign={'center'}
                   borderColor={colors.red}
                   boxShadow={'0px 4px 30px rgba(255, 48, 48, 1)'}
                   justifyContent={'center'}
                   alignItems={'center'}
-                  fontSize={{ base: 'sm', lg: '2xl' }}
+                  fontSize={{ base: 'xs', md: '2xl' }}
                   textColor={colors.red}
                   fontFamily={'Star Jedi'}
                   cursor={'pointer'}

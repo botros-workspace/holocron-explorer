@@ -7,7 +7,7 @@ const crawlMobile = keyframes`
     top: 90%;
   }
   100% {
-    top: -125%; 
+    top: -130%; 
   }
 `
 
@@ -35,7 +35,7 @@ const MotivationLetter: NextPage = () => {
     >
       <Flex
         w={'80vw'}
-        animation={`${animation} 70s linear`}
+        animation={`${animation} 80s linear`}
         fontSize={{ base: 'sm', lg: '4xl' }}
         fontFamily={'Star Jedi'}
         textColor={colors.red}

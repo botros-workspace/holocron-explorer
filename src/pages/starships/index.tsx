@@ -25,9 +25,10 @@ const DetailsComponent: FunctionComponent<Props> = ({
     <>
       <Flex
         w={{ base: '100%', lg: '50%' }}
-        h={{ base: '50%', lg: '100%' }}
         flexDir={'column'}
         gap={4}
+        h={{ base: 'auto', lg: '100%' }}
+        pt={6}
         justifyContent={{ base: 'flex-end', lg: 'center' }}
       >
         <DetailRowTemplate
@@ -61,8 +62,8 @@ const DetailsComponent: FunctionComponent<Props> = ({
       </Flex>
       <Flex
         w={{ base: '100%', lg: '50%' }}
-        h={{ base: '50%', lg: '100%' }}
-        pt={{ base: 1, lg: 8 }}
+        h={{ base: 'auto', lg: '100%' }}
+        pt={2}
         flexDir={'column'}
         justifyContent={{ base: 'flex-start', lg: 'center' }}
         gap={4}

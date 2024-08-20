@@ -55,12 +55,30 @@ const DetailRowTemplate: FunctionComponent<Props> = ({ title, value }) => {
           <Flex>None</Flex>
         ) : processedValue.length > 1 ? (
           processedValue.map((item, index) => (
-            <Flex key={index} mb={1} w={'100%'}>
+            <Flex
+              key={index}
+              mb={1}
+              w={'100%'}
+              css={{
+                '&::-webkit-scrollbar': {
+                  display: 'none',
+                },
+              }}
+            >
               - {item}
             </Flex>
           ))
         ) : (
-          <Flex maxH={'80px'} overflow={'scroll'} w={'100%'}>
+          <Flex
+            maxH={'80px'}
+            overflow={'scroll'}
+            w={'100%'}
+            css={{
+              '&::-webkit-scrollbar': {
+                display: 'none',
+              },
+            }}
+          >
             {processedValue[0]}
           </Flex>
         )}
