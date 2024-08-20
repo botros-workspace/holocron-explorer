@@ -1,31 +1,29 @@
 import { useColor } from '@/shared/hooks/use-color.hook'
+import { MenuItemAttributes } from '@/shared/interfaces/MenuItemAttributes'
 import { Flex, Link } from '@chakra-ui/react'
 
 import router from 'next/router'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 
 type Props = {
-  singleItem: {
-    name: string
-    link: string
-    delay: number
-  }
+  singleItem: MenuItemAttributes
   onClose: () => void
+  setVisible: (value: number) => void
 }
 
 const MenuItemTemplate: FunctionComponent<Props> = ({
   singleItem,
   onClose,
+  setVisible,
 }) => {
   const colors = useColor()
   const [isLinkHovered, setisLinkHovered] = useState(false)
-  const [isLinkVisible, setIsLinkVisible] = useState(false)
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLinkVisible(true)
+      setVisible(singleItem.id)
     }, singleItem.delay)
     return () => clearTimeout(timer)
-  }, [singleItem.delay])
+  }, [setVisible, singleItem.delay, singleItem.id])
 
   return (
     <Link
@@ -53,7 +51,7 @@ const MenuItemTemplate: FunctionComponent<Props> = ({
         fontFamily={'Star Jedi'}
         onClick={onClose}
         h={10}
-        opacity={isLinkVisible ? 1 : 0}
+        opacity={singleItem.isVisible ? 1 : 0}
         transition={'opacity 0.5s'}
         justifyContent={'center'}
         alignItems={'center'}
