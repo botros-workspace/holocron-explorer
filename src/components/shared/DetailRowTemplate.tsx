@@ -31,17 +31,15 @@ const DetailRowTemplate: FunctionComponent<Props> = ({ title, value }) => {
       flexDir={'row'}
       fontFamily={'Star Jedi'}
       w={'100%'}
-      px={8}
-      py={2}
       fontSize={{ base: 'xx-small', md: 'md' }}
     >
-      <Flex textColor={colors.red} w={{ base: '40%', lg: '50%' }} gap={2}>
-        {value.length > 1 && <Flex>{value.length}</Flex>} {title} :
+      <Flex textColor={colors.red} w={{ base: '120px', md: '160px' }} gap={2}>
+        {value.length > 1 && <Flex>{value.length}</Flex>} {title}:
       </Flex>
       <Flex
         flexDir={'column'}
         textColor={colors.yellow}
-        w={{ base: '60%', lg: '50%' }}
+        w={{ base: '150px', md: '180px', lg: '220px' }}
         overflow={'scroll'}
         px={1}
         maxH={processedValue.length > 3 ? '80px' : 'auto'}
