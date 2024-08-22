@@ -79,7 +79,7 @@ const ContentGalleryContainer: FunctionComponent<Props> = ({
       if (isAutoNavigationOn) {
         navigateRight()
       }
-    }, 5000)
+    }, 2000)
 
     return () => clearTimeout(timer)
   }, [isAutoNavigationOn, navigateRight])
