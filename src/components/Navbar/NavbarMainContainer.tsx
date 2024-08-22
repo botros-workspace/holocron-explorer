@@ -9,6 +9,19 @@ import { useRouter } from 'next/router'
 const NavbarMainContainer: FunctionComponent = () => {
   const [showContent, setShowContent] = useState(false)
   const router = useRouter()
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true)
@@ -24,6 +37,9 @@ const NavbarMainContainer: FunctionComponent = () => {
       pos={'fixed'}
       zIndex={1000}
       px={6}
+      background={scrolled ? 'rgba(128, 128, 128, 0.2)' : 'transparent'}
+      backdropFilter={scrolled ? 'blur(1px)' : 'none'}
+      boxShadow={scrolled ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'}
     >
       <Flex
         transform={
